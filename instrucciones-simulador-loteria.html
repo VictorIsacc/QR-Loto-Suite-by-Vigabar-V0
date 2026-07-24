@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Instrucciones · QR Loto Suite by Vigabar®</title>
+  <style>
+    :root {
+      --bg: #f3f7fb;
+      --surface: rgba(255, 255, 255, 0.9);
+      --surface-strong: #ffffff;
+      --text: #172033;
+      --muted: #5e6b80;
+      --line: #d9e2ef;
+      --blue: #1677c8;
+      --blue-soft: #d9efff;
+      --orange: #e4772b;
+      --orange-soft: #ffead9;
+      --green: #20825d;
+      --green-soft: #dff5e9;
+      --purple: #7255ba;
+      --purple-soft: #eee8ff;
+      --danger: #bd3e3e;
+      --shadow: 0 18px 48px rgba(45, 68, 100, 0.12);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #10161d;
+        --surface: rgba(29, 39, 50, 0.92);
+        --surface-strong: #202b37;
+        --text: #f2f6fb;
+        --muted: #aeb9c8;
+        --line: #354455;
+        --blue: #72bcf2;
+        --blue-soft: #183c56;
+        --orange: #ff9a57;
+        --orange-soft: #54331f;
+        --green: #6fd2a7;
+        --green-soft: #1c4939;
+        --purple: #b8a0ff;
+        --purple-soft: #3c315e;
+        --danger: #ff8b8b;
+        --shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 4%, color-mix(in srgb, var(--purple) 18%, transparent), transparent 34rem),
+        radial-gradient(circle at 92% 22%, color-mix(in srgb, var(--blue) 16%, transparent), transparent 32rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    button, a { font: inherit; }
+
+    a { color: inherit; }
+
+    .guide {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1rem 0 4rem;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.35rem 0 1rem;
+    }
+
+    .brand {
+      color: var(--blue);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .registered {
+      font-size: 0.55em;
+      vertical-align: super;
+    }
+
+    .close-button,
+    .jump-link {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--text);
+      background: var(--surface);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .close-button {
+      padding: 0.65rem 1rem;
+    }
+
+    .close-button:hover,
+    .jump-link:hover {
+      border-color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .close-button:focus-visible,
+    .jump-link:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--blue) 55%, transparent);
+      outline-offset: 2px;
+    }
+
+    .hero {
+      padding: clamp(1.4rem, 5vw, 3.25rem);
+      border: 1px solid var(--line);
+      border-radius: 1.6rem;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "6/49";
+      position: absolute;
+      right: -0.5rem;
+      bottom: -2.3rem;
+      color: color-mix(in srgb, var(--blue) 13%, transparent);
+      font-size: clamp(7rem, 23vw, 15rem);
+      font-weight: 800;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
+    .eyebrow {
+      margin: 0 0 0.55rem;
+      color: var(--blue);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.82rem;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 4rem);
+      line-height: 1.05;
+    }
+
+    .hero p:not(.eyebrow) {
+      max-width: 720px;
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.14rem);
+    }
+
+    .jump-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin: 1rem 0 2rem;
+    }
+
+    .jump-link {
+      padding: 0.55rem 0.8rem;
+      font-size: 0.92rem;
+    }
+
+    .guide-card {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
+      gap: clamp(1.25rem, 4vw, 3rem);
+      align-items: center;
+      padding: clamp(1rem, 3.6vw, 2.25rem);
+      margin-top: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 1.35rem;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      scroll-margin-top: 1rem;
+    }
+
+    .guide-card:nth-of-type(even) .illustration { order: 2; }
+
+    .step-number {
+      display: inline-grid;
+      place-items: center;
+      width: 2.15rem;
+      height: 2.15rem;
+      margin-bottom: 0.65rem;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--blue);
+      font-weight: 800;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.2;
+    }
+
+    h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+    }
+
+    .copy p { margin: 0.65rem 0; color: var(--muted); }
+
+    .steps {
+      margin: 0.8rem 0 0;
+      padding-left: 1.35rem;
+    }
+
+    .steps li { margin: 0.45rem 0; }
+
+    .tip {
+      margin-top: 1rem;
+      padding: 0.75rem 0.9rem;
+      border-left: 4px solid var(--orange);
+      border-radius: 0.4rem;
+      background: var(--orange-soft);
+      color: var(--text);
+    }
+
+    .illustration {
+      min-width: 0;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: color-mix(in srgb, var(--surface-strong) 82%, var(--blue-soft));
+      border: 1px solid var(--line);
+    }
+
+    .mini-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.8rem;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 700;
+    }
+
+    .drum-scene {
+      display: grid;
+      grid-template-columns: minmax(145px, 1fr) auto minmax(130px, 0.9fr);
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .drum {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.28rem;
+      width: min(100%, 210px);
+      aspect-ratio: 1;
+      margin: auto;
+      padding: 1rem;
+      border: 4px solid var(--blue);
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--blue-soft) 75%, transparent);
+      overflow: hidden;
+      align-content: center;
+    }
+
+    .mini-ball,
+    .result-ball {
+      display: inline-grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+    }
+
+    .mini-ball {
+      min-width: 0;
+      color: var(--text);
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      font-size: 0.65rem;
+    }
+
+    .arrow {
+      color: var(--orange);
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.45rem;
+    }
+
+    .result-ball {
+      color: #fff;
+      background: var(--blue);
+      font-size: 0.82rem;
+    }
+
+    .saved-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(95px, 0.75fr);
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .ticket-lines { display: grid; gap: 0.45rem; }
+
+    .ticket-line {
+      display: flex;
+      justify-content: space-around;
+      gap: 0.2rem;
+      padding: 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 0.65rem;
+      background: var(--surface-strong);
+      font-size: 0.74rem;
+      font-weight: 700;
+    }
+
+    .qr-symbol {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+      width: min(100%, 145px);
+      aspect-ratio: 1;
+      padding: 0.65rem;
+      margin: auto;
+      border-radius: 0.45rem;
+      background: #fff;
+      border: 1px solid var(--line);
+    }
+
+    .qr-symbol span { background: #172033; }
+    .qr-symbol span:nth-child(3n),
+    .qr-symbol span:nth-child(5n + 1) { background: transparent; }
+
+    .position-board { display: grid; gap: 0.75rem; }
+
+    .position-values {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.45rem;
+      text-align: center;
+    }
+
+    .position-values div {
+      padding: 0.5rem 0.25rem;
+      border-radius: 0.55rem;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+    }
+
+    .position-values small { display: block; color: var(--muted); }
+
+    .position-track {
+      display: flex;
+      height: 0.8rem;
+      border-radius: 999px;
+      overflow: hidden;
+      background: var(--line);
+    }
+
+    .position-track .fixed { width: 33.333%; background: var(--blue); }
+    .position-track .semi { width: 50%; background: var(--orange); }
+    .position-track .random { width: 16.667%; background: var(--green); }
+
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+
+    .rule-chip {
+      padding: 0.55rem 0.35rem;
+      border-radius: 0.6rem;
+      text-align: center;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      font-size: 0.78rem;
+    }
+
+    .rule-chip strong { display: block; color: var(--blue); font-size: 1rem; }
+
+    .reduction-scene {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) auto minmax(0, 1.05fr);
+      gap: 0.7rem;
+      align-items: center;
+    }
+
+    .reduction-numbers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.35rem;
+    }
+
+    .reduction-number {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      color: #fff;
+      background: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .reduction-result {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .reduction-formula {
+      padding: 0.55rem;
+      border-radius: 0.6rem;
+      color: var(--text);
+      background: var(--orange-soft);
+      border: 1px solid color-mix(in srgb, var(--orange) 55%, var(--line));
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .reduction-ticket {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.2rem;
+      padding: 0.45rem;
+      border-radius: 0.55rem;
+      background: var(--surface-strong);
+      border-left: 0.35rem solid var(--green);
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .clipboard-scene {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 0.65rem;
+      align-items: center;
+    }
+
+    .text-sheet,
+    .memory-box {
+      min-height: 150px;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+    }
+
+    .text-sheet code {
+      display: block;
+      margin: 0.35rem 0;
+      color: var(--text);
+      font-size: clamp(0.65rem, 2vw, 0.8rem);
+      white-space: nowrap;
+    }
+
+    .paste-button {
+      display: inline-block;
+      padding: 0.55rem;
+      border-radius: 0.55rem;
+      color: #fff;
+      background: var(--blue);
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .memory-box { display: grid; align-content: center; gap: 0.55rem; }
+
+    .memory-row {
+      height: 0.55rem;
+      border-radius: 999px;
+      background: var(--green-soft);
+      border: 1px solid color-mix(in srgb, var(--green) 45%, var(--line));
+    }
+
+    .checker-scene { display: grid; gap: 0.85rem; }
+
+    .winning-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.35rem;
+    }
+
+    .winning-row .result-ball { background: var(--purple); }
+
+    .hits-list { display: grid; gap: 0.4rem; }
+
+    .hit-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.55rem;
+      background: var(--surface-strong);
+      border-left: 0.4rem solid var(--line);
+      font-size: 0.8rem;
+    }
+
+    .hit-row.three { border-left-color: var(--green); }
+    .hit-row.five { border-left-color: var(--orange); }
+    .hit-row.six { border-left-color: var(--purple); }
+
+    .mobile-scene {
+      display: grid;
+      grid-template-columns: minmax(160px, 230px) minmax(0, 1fr);
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .phone {
+      width: 100%;
+      padding: 0.65rem;
+      border: 5px solid var(--text);
+      border-radius: 1.35rem;
+      background: var(--surface-strong);
+    }
+
+    .phone-notch {
+      width: 38%;
+      height: 0.35rem;
+      margin: 0 auto 0.65rem;
+      border-radius: 999px;
+      background: var(--text);
+    }
+
+    .phone-panel {
+      display: grid;
+      gap: 0.45rem;
+      padding: 0.65rem;
+      border-radius: 0.7rem;
+      background: var(--blue-soft);
+    }
+
+    .phone-field {
+      height: 2.8rem;
+      border: 1px solid var(--line);
+      border-radius: 0.55rem;
+      background: var(--surface-strong);
+    }
+
+    .phone-actions { display: grid; gap: 0.35rem; }
+
+    .phone-action {
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      color: #fff;
+      background: var(--blue);
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .mobile-notes { display: grid; gap: 0.55rem; }
+
+    .mobile-note {
+      padding: 0.65rem;
+      border-radius: 0.65rem;
+      background: var(--surface-strong);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .final-note {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      color: var(--muted);
+      background: var(--surface);
+      text-align: center;
+    }
+
+    .back-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 760px) {
+      .guide { width: min(100% - 1rem, 1120px); }
+      .guide-card { grid-template-columns: 1fr; }
+      .guide-card:nth-of-type(even) .illustration { order: initial; }
+      .illustration { order: initial; }
+      .copy { order: 2; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar { align-items: flex-start; }
+      .brand { padding-top: 0.55rem; }
+      .close-button { padding: 0.55rem 0.7rem; }
+      .drum-scene,
+      .saved-flow,
+      .reduction-scene,
+      .clipboard-scene,
+      .mobile-scene { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); text-align: center; }
+      .qr-symbol { width: 120px; }
+      .position-values { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .phone { width: min(210px, 100%); margin: auto; }
+    }
+
+    @media print {
+      body { background: #fff; }
+      .guide { width: 100%; padding: 0; }
+      .topbar, .jump-nav, .back-actions { display: none; }
+      .hero, .guide-card, .final-note { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="guide">
+    <div class="topbar">
+      <div class="brand">QR Loto Suite · by Vigabar<span class="registered">®</span></div>
+      <button class="close-button return-app" type="button">← Volver a la aplicación</button>
+    </div>
+
+    <header class="hero">
+      <p class="eyebrow">Guía rápida e ilustrada</p>
+      <h1>QR Loto Suite</h1>
+      <p>Consulta cómo realizar sorteos, guardar combinaciones, trabajar con fijos y semifijos, crear desarrollos o reducciones, generar códigos QR y usar el escrutador.</p>
+    </header>
+
+    <nav class="jump-nav" aria-label="Índice de instrucciones">
+      <a class="jump-link" href="#sorteo">Sorteo</a>
+      <a class="jump-link" href="#qr">Guardar y QR</a>
+      <a class="jump-link" href="#reglas">Fijos y semifijos</a>
+      <a class="jump-link" href="#reducciones">Desarrollos y reducciones</a>
+      <a class="jump-link" href="#portapapeles">TXT y portapapeles</a>
+      <a class="jump-link" href="#escrutador">Escrutador</a>
+      <a class="jump-link" href="#movil">Uso móvil</a>
+    </nav>
+
+    <p class="final-note">En la aplicación, la barra <strong>«Acceso rápido»</strong> permite ir directamente a cada zona y abrir estas instrucciones. Al final de las zonas principales encontrarás <strong>«↑ Volver al inicio»</strong> para regresar a esa barra.</p>
+
+    <section class="guide-card" id="sorteo">
+      <div class="illustration" aria-label="Ilustración del bombo extrayendo seis bolas y ordenándolas">
+        <div class="mini-title"><span>Bombo</span><span>49 bolas</span></div>
+        <div class="drum-scene">
+          <div class="drum" aria-hidden="true">
+            <span class="mini-ball">1</span><span class="mini-ball">7</span><span class="mini-ball">14</span><span class="mini-ball">23</span><span class="mini-ball">41</span>
+            <span class="mini-ball">6</span><span class="mini-ball">18</span><span class="mini-ball">32</span><span class="mini-ball">9</span><span class="mini-ball">27</span>
+            <span class="mini-ball">45</span><span class="mini-ball">12</span><span class="mini-ball">36</span><span class="mini-ball">3</span><span class="mini-ball">49</span>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="result-grid" aria-hidden="true">
+            <span class="result-ball">07</span><span class="result-ball">14</span><span class="result-ball">18</span>
+            <span class="result-ball">23</span><span class="result-ball">36</span><span class="result-ball">41</span>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <span class="step-number">1</span>
+        <h2>Realizar un sorteo aleatorio</h2>
+        <ol class="steps">
+          <li>Pulsa <strong>«Extraer bola»</strong>. El bombo gira y mezcla las bolas antes de cada extracción.</li>
+          <li>Repite hasta obtener las seis bolas. Ningún número puede repetirse.</li>
+          <li>La aplicación muestra el orden de salida y la combinación ordenada de menor a mayor.</li>
+          <li>Pulsa <strong>«Guardar combinación»</strong> si quieres conservarla. Si todavía quedan huecos en el boleto, <strong>«Nuevo sorteo»</strong> quedará resaltado para preparar la siguiente.</li>
+        </ol>
+        <div class="tip">«Nuevo sorteo» devuelve las 49 bolas al bombo y recupera su aspecto normal al comenzar la siguiente extracción.</div>
+      </div>
+    </section>
+
+    <section class="guide-card" id="qr">
+      <div class="illustration" aria-label="Ilustración de combinaciones guardadas que se convierten en códigos QR">
+        <div class="mini-title"><span>Combinaciones guardadas</span><span>Hasta 8 por QR</span></div>
+        <div class="saved-flow">
+          <div class="ticket-lines" aria-hidden="true">
+            <div class="ticket-line"><span>03</span><span>11</span><span>18</span><span>27</span><span>35</span><span>46</span></div>
+            <div class="ticket-line"><span>07</span><span>14</span><span>23</span><span>31</span><span>40</span><span>49</span></div>
+            <div class="ticket-line"><span>01</span><span>12</span><span>21</span><span>29</span><span>38</span><span>44</span></div>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="qr-symbol" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <span class="step-number">2</span>
+        <h2>Guardar combinaciones y generar QR</h2>
+        <ol class="steps">
+          <li>Guarda las combinaciones aleatorias que quieras utilizar.</li>
+          <li>Selecciona <strong>Bonoloto</strong> o <strong>La Primitiva</strong> y el periodo del sorteo.</li>
+          <li>En La Primitiva también puedes escoger reintegro y activar o desactivar Joker. Su logotipo rojo aparecerá junto al de La Primitiva únicamente cuando el QR incluya Joker.</li>
+          <li>En <strong>«Coste del boleto o QR»</strong> puedes mostrar u ocultar el cálculo estimado. Si generas varios códigos, cada uno presenta su importe al recorrerlos con «Anterior» y «Siguiente».</li>
+          <li>Pulsa <strong>«Generar QR»</strong>. La aplicación se desplazará automáticamente hasta el primer código generado; utiliza «Anterior» y «Siguiente» cuando haya más de uno.</li>
+        </ol>
+        <div class="tip">Bonoloto cuesta 0,50 € por combinación y sorteo. La Primitiva cuesta 1 € por combinación y el Joker añade 1 € por QR y sorteo. En «Semana en curso» se cuentan los sorteos pendientes, incluido el de hoy cuando corresponda.</div>
+      </div>
+    </section>
+
+    <section class="guide-card" id="reglas">
+      <div class="illustration" aria-label="Ilustración del contador de posiciones y reglas de números fijos y semifijos">
+        <div class="mini-title"><span>Ejemplo · 20 combinaciones</span><span>120 posiciones</span></div>
+        <div class="position-board">
+          <div class="position-values">
+            <div><small>Total</small><strong>120</strong></div>
+            <div><small>Fijos</small><strong>40</strong></div>
+            <div><small>Semifijos</small><strong>60</strong></div>
+            <div><small>Por cubrir</small><strong>20</strong></div>
+          </div>
+          <div class="position-track" aria-hidden="true"><span class="fixed"></span><span class="semi"></span><span class="random"></span></div>
+          <div class="rules" aria-hidden="true">
+            <div class="rule-chip"><strong>01</strong>Fijo · 20</div>
+            <div class="rule-chip"><strong>14</strong>Fijo · 20</div>
+            <div class="rule-chip"><strong>18</strong>Semifijo · 10</div>
+            <div class="rule-chip"><strong>24</strong>Semifijo · 12</div>
+            <div class="rule-chip"><strong>40</strong>Semifijo · 8</div>
+            <div class="rule-chip"><strong>46</strong>Semifijo · 10</div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <span class="step-number">3</span>
+        <h2>Crear de 1 a 100 combinaciones con reglas</h2>
+        <ol class="steps">
+          <li>Indica cuántas combinaciones deseas generar.</li>
+          <li>Un <strong>fijo</strong> aparece en todas; un <strong>semifijo</strong> aparece exactamente las veces indicadas.</li>
+          <li>Comprueba el contador: las posiciones «Por cubrir» se completarán con números aleatorios.</li>
+          <li>Pulsa <strong>«Generar»</strong>. El programa prueba distintos repartos para evitar combinaciones repetidas.</li>
+          <li>Usa <strong>«Copiar fijos/semifijos»</strong> para llevar todas las combinaciones al portapapeles.</li>
+        </ol>
+        <div class="tip">Si aparecen posiciones sobrantes o no existen suficientes combinaciones distintas, reduce fijos, apariciones o la cantidad solicitada.</div>
+      </div>
+    </section>
+
+    <section class="guide-card" id="reducciones">
+      <div class="illustration" aria-label="Ilustración de doce números que se transforman en una reducción matemática comprobada">
+        <div class="mini-title"><span>De 7 a 15 números</span><span>K=6 · M=6 · L=1</span></div>
+        <div class="reduction-scene">
+          <div class="reduction-numbers" aria-hidden="true">
+            <span class="reduction-number">01</span><span class="reduction-number">05</span><span class="reduction-number">09</span><span class="reduction-number">14</span>
+            <span class="reduction-number">18</span><span class="reduction-number">23</span><span class="reduction-number">27</span><span class="reduction-number">31</span>
+            <span class="reduction-number">36</span><span class="reduction-number">40</span><span class="reduction-number">44</span><span class="reduction-number">49</span>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="reduction-result" aria-hidden="true">
+            <div class="reduction-formula">C(12,6,5,6,1)=B</div>
+            <div class="reduction-ticket"><span>01</span><span>09</span><span>18</span><span>27</span><span>36</span><span>44</span></div>
+            <div class="reduction-ticket"><span>05</span><span>14</span><span>23</span><span>31</span><span>40</span><span>49</span></div>
+            <div class="reduction-ticket"><span>01</span><span>14</span><span>18</span><span>31</span><span>44</span><span>49</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <span class="step-number">4</span>
+        <h2>Crear un desarrollo completo o una reducción</h2>
+        <ol class="steps">
+          <li>Selecciona manualmente entre <strong>7 y 15 números</strong>, o indica la cantidad y pulsa <strong>«Seleccionar aleatoriamente»</strong>.</li>
+          <li>Cada número tiene tres estados: primer toque, seleccionado; segundo toque, <strong>fijo</strong>; tercer toque, eliminado. Puedes marcar hasta 5 fijos, que aparecerán en todas las apuestas.</li>
+          <li>Marca uno de los dos modos excluyentes: <strong>«Reducción»</strong> o <strong>«Desarrollo completo»</strong>.</li>
+          <li>En «Desarrollo completo» se avisa previamente de cuántas combinaciones se generarán. Si existen fijos, solo se desarrollan las apuestas que los contienen. Las cantidades grandes se muestran por páginas.</li>
+          <li>En «Reducción», elige T=5, 4, 3 o 2 y el método. K=6, M=6 y L=1 permanecen fijos.</li>
+          <li>Elige entre <strong>«Garantizada · 100 %»</strong> o <strong>«Por porcentaje»</strong>. En el segundo caso indica la cobertura mínima que deben conservar los ciclos.</li>
+          <li>Con ciclos, observa el menor B y pulsa <strong>«Detener ciclos»</strong> cuando quieras conservarlo. «Aleatorio · un solo intento» ofrece un resultado más rápido.</li>
+          <li>En las reducciones, consulta el <strong>desglose por categorías</strong> para conocer la cobertura acumulada y los premios posibles de 6, 5, 4, 3, 2, 1 o 0 aciertos.</li>
+          <li>Cuando hay fijos puedes alternar entre el <strong>desglose condicionado</strong>, que supone acertados todos los fijos, y el <strong>desglose general</strong> sobre todos los posibles resultados.</li>
+          <li>Después puedes copiar el resultado, generar sus QR o seleccionarlo como origen en el escrutador.</li>
+          <li>Pulsa <strong>«Limpiar generador»</strong> para borrar a la vez los números seleccionados y cualquier reducción o desarrollo generado.</li>
+        </ol>
+        <div class="tip">Solo se genera el modo marcado. La cobertura por porcentaje se comprueba sobre casos reales, no mediante una estimación. Si hay fijos, la garantía principal está condicionada a acertarlos. Cada ciclo conserva el menor B encontrado, aunque no se afirma haber demostrado el mínimo absoluto matemático.</div>
+      </div>
+    </section>
+
+    <section class="guide-card" id="portapapeles">
+      <div class="illustration" aria-label="Ilustración de combinaciones pegadas desde el portapapeles y almacenadas en memoria">
+        <div class="mini-title"><span>TXT o portapapeles</span><span>Una combinación por línea</span></div>
+        <div class="clipboard-scene">
+          <div class="text-sheet" aria-hidden="true">
+            <code>07 12 23 31 38 46</code>
+            <code>09 18 24 27 35 44</code>
+            <code>01 14 22 33 40 49</code>
+            <span class="paste-button">Pegar o añadir</span>
+          </div>
+          <div class="arrow" aria-hidden="true">→</div>
+          <div class="memory-box" aria-hidden="true">
+            <div class="memory-row"></div><div class="memory-row"></div><div class="memory-row"></div><div class="memory-row"></div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <span class="step-number">5</span>
+        <h2>Cargar un TXT o pegar combinaciones</h2>
+        <ol class="steps">
+          <li>Puedes seleccionar un archivo TXT o pegar las combinaciones directamente.</li>
+          <li>Escribe los seis números de cada apuesta en una misma línea, separados por espacios, comas u otros separadores.</li>
+          <li>Pulsa <strong>«Cargar texto pegado»</strong> para guardarlas temporalmente en la memoria de la aplicación.</li>
+          <li>Selecciona la modalidad y genera todos los QR necesarios.</li>
+        </ol>
+        <div class="tip">En el móvil, «Pegar o añadir» conserva lo anterior y deja preparada la línea siguiente. El botón «Nueva línea» permite separar manualmente otro bloque.</div>
+      </div>
+    </section>
+
+    <section class="guide-card" id="escrutador">
+      <div class="illustration" aria-label="Ilustración del escrutador comparando una combinación con los números oficiales">
+        <div class="mini-title"><span>Combinación oficial</span><span>Resumen de aciertos</span></div>
+        <div class="checker-scene">
+          <div class="winning-row" aria-hidden="true">
+            <span class="result-ball">07</span><span class="result-ball">14</span><span class="result-ball">18</span>
+            <span class="result-ball">23</span><span class="result-ball">36</span><span class="result-ball">41</span>
+          </div>
+          <div class="hits-list" aria-hidden="true">
+            <div class="hit-row three"><span>Combinación 3</span><strong>3 aciertos</strong></div>
+            <div class="hit-row five"><span>Combinación 8</span><strong>5 + C</strong></div>
+            <div class="hit-row six"><span>Combinación 12</span><strong>6 aciertos</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <span class="step-number">6</span>
+        <h2>Escrutar las combinaciones</h2>
+        <ol class="steps">
+          <li>Consulta en LAE los seis números oficiales, el complementario y, para La Primitiva, el reintegro.</li>
+          <li>Selecciona la modalidad y el origen: aleatorias, fijos/semifijos, importadas, reducción o desarrollo completo.</li>
+          <li>Introduce los datos oficiales y pulsa <strong>«Escrutar combinaciones»</strong>.</li>
+          <li>El resumen separa 5 aciertos de 5 + complementario y 6 de 6 + reintegro.</li>
+        </ol>
+        <div class="tip">Los resultados con 3 o más aciertos se distinguen mediante colores y etiquetas. El escrutador no descarga automáticamente los resultados de LAE.</div>
+      </div>
+    </section>
+
+    <section class="guide-card" id="movil">
+      <div class="illustration" aria-label="Ilustración de la zona de portapapeles adaptada a un teléfono móvil">
+        <div class="mini-title"><span>Diseño adaptable</span><span>Teléfonos y ordenadores</span></div>
+        <div class="mobile-scene">
+          <div class="phone" aria-hidden="true">
+            <div class="phone-notch"></div>
+            <div class="phone-panel">
+              <div class="phone-field"></div>
+              <div class="phone-actions">
+                <div class="phone-action">Pegar o añadir</div>
+                <div class="phone-action">Nueva línea</div>
+                <div class="phone-action">Cargar texto</div>
+              </div>
+            </div>
+          </div>
+          <div class="mobile-notes">
+            <div class="mobile-note"><strong>Desplázate verticalmente:</strong> las zonas se colocan una debajo de otra.</div>
+            <div class="mobile-note"><strong>Acceso rápido:</strong> desliza lateralmente los botones y vuelve arriba desde cada zona.</div>
+            <div class="mobile-note"><strong>Portapapeles:</strong> pega varios bloques sin perder los anteriores.</div>
+            <div class="mobile-note"><strong>QR:</strong> usa Anterior y Siguiente para recorrer todos los códigos.</div>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <span class="step-number">7</span>
+        <h2>Consejos para usarla en el móvil</h2>
+        <ol class="steps">
+          <li>Abre el archivo desde Chrome u otro navegador moderno.</li>
+          <li>Para importar apuestas recibidas por WhatsApp, cópialas y usa <strong>«Pegar o añadir desde el portapapeles»</strong>.</li>
+          <li>Si el teclado no muestra Enter, utiliza el botón <strong>«Nueva línea»</strong>.</li>
+          <li>Desliza horizontalmente la barra <strong>«Acceso rápido»</strong> y utiliza <strong>«↑ Volver al inicio»</strong> para regresar a ella.</li>
+          <li>Mantén el HTML principal y este archivo de instrucciones en la misma carpeta.</li>
+        </ol>
+      </div>
+    </section>
+
+    <p class="final-note">Esta aplicación simula sorteos, organiza combinaciones, comprueba reducciones y prepara textos QR. No predice resultados ni garantiza premios. Comprueba siempre los datos antes de presentar un código.</p>
+
+    <div class="back-actions">
+      <button class="close-button return-app" type="button">← Volver a la aplicación</button>
+    </div>
+  </main>
+
+  <script>
+    document.querySelectorAll('.return-app').forEach((button) => {
+      button.addEventListener('click', () => {
+        window.close();
+        window.setTimeout(() => {
+          if (!window.closed) window.location.href = 'index.html';
+        }, 150);
+      });
+    });
+  </script>
+</body>
+</html>
